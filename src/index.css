@@ -1,24 +1,373 @@
-@import url("https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 :root {
-  font-family: "Protest Riot", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Quicksand", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
-  background: url("./assets/bg1.webp");
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 25%, #ffd6eb 50%, #ffcce5 75%, #ffc2e0 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet de fond avec des bulles flottantes */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 192, 203, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(255, 105, 180, 0.2) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Cœurs flottants */
+.floating-heart {
+  position: fixed;
+  font-size: 2rem;
+  animation: floatUp 15s linear infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Container principal */
+.question-container {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Carte principale avec effet 3D */
+.main-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 
+    0 20px 60px rgba(255, 105, 180, 0.3),
+    0 0 80px rgba(255, 182, 193, 0.2);
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 192, 203, 0.5);
+  animation: cardFloat 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.main-card:hover {
+  transform: scale(1.02);
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Icône de cœur principal */
+.heart-icon {
+  font-size: 5rem;
+  text-align: center;
+  animation: heartbeat 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.6));
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.15);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(1);
+  }
+}
+
+/* Bouton Oui */
+.yes-button {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+  color: white;
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 23, 68, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.yes-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.yes-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.yes-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 23, 68, 0.6);
+}
+
+.yes-button:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Bouton Non */
+.no-button {
+  background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
+  color: #666;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.no-button:hover {
+  background: linear-gradient(135deg, #d0d0d0 0%, #aaa 100%);
+  transform: translateY(-2px);
+}
+
+/* Container de célébration */
+.celebration-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-message {
+  text-align: center;
+  z-index: 10;
+  animation: scaleIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4rem 3rem;
+  border-radius: 2rem;
+  box-shadow: 0 30px 80px rgba(255, 105, 180, 0.4);
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.big-heart {
+  font-size: 8rem;
+  animation: bigHeartBeat 1.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.8));
+}
+
+@keyframes bigHeartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.2);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.15);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounceIn 1s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 1.5s ease 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sparkles {
+  font-size: 2rem;
+  margin-top: 2rem;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* Cœurs qui explosent */
+.exploding-heart {
+  position: fixed;
+  font-size: 2rem;
+  animation: explode 3s ease-out forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(0, 0) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(
+      calc(var(--random-x, 50px) - 25px),
+      -100vh
+    ) scale(1.5) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.exploding-heart:nth-child(odd) {
+  --random-x: 100px;
+}
+
+.exploding-heart:nth-child(even) {
+  --random-x: -100px;
+}
+
+.exploding-heart:nth-child(3n) {
+  --random-x: 150px;
+}
+
+.exploding-heart:nth-child(4n) {
+  --random-x: -150px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-card {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+  
+  .heart-icon {
+    font-size: 3.5rem;
+  }
+  
+  .big-heart {
+    font-size: 5rem;
+  }
+  
+  .success-message {
+    padding: 2.5rem 2rem;
+    margin: 1rem;
+  }
 }
